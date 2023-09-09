@@ -14,5 +14,14 @@ wait for final release...
 # Languages
 Persian and English
 
+you can add more language
+in:
+lang.json
+
+and define them in cogs/guess.py and cogs/language/guess.py
+
 # County
 you should add countries by your self
+add picture to any folder
+
+and define it in gtc_assets.json
