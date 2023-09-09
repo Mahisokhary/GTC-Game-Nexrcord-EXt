@@ -1,0 +1,26 @@
+{
+	"win" : {
+		"en": "congratulations you get: {0}",
+		"fa": "آفرین!! تو {0} رو دریافت کردی"
+	},
+	"wrong" : {
+		"en": "Wrong answer",
+		"fa": "پاسخ اشتباه بود"
+	},
+	"e403" : {
+		"en": "you dont have access to this",
+		"fa": "شما اجازه استفاده از این کامند یا دکمه را ندارید"
+	},
+	"change-lang": {
+		"en": "your language successfully changed",
+		"fa": "زبان شما با موفقیت تغییر کرد"
+	},
+	"success": {
+		"en": "the operation was successful",
+		"fa": "عملیات با موفقیت انجام شد"
+	},
+	"test-eror": {
+		"en": "please first set spawn channel using: /gtc set-spawn",
+		"fa": "لطفا اول چنل اسپان رو مشخص کنید با: /gtc set-spawn"
+	}
+}
