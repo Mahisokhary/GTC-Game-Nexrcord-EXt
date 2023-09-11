@@ -77,7 +77,7 @@ class guess_the_country(commands.Cog):
 						self.bot = bot
 						self.correct = correct
 						self.btn = btn
-						super().__init__(title="Guess The Country!")
+						super().__init__(title="Guess The Country!", timeout=7)
 						answer = nextcord.ui.TextInput(label="guess the country name:")
 						self.add_item(answer)
 						self.answer = answer
@@ -98,6 +98,8 @@ class guess_the_country(commands.Cog):
 						super().__init__(timeout=60)
 						self.correct = correct
 					async def on_timeout(self):
+						if self.msg.content != ".":
+							return 
 						await self.msg.edit(content="timed out!", view=None)
 					@nextcord.ui.button(label="Catch me!", style=nextcord.ButtonStyle.blurple)
 					async def btn(self, btn:nextcord.ui.Button, ctx:nextcord.Interaction):
