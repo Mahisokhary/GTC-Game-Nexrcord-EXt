@@ -11,6 +11,15 @@ you should guess its name
 wait for final release...
 
 
+# notice
+for auto spawn add this to on_ready function:
+```py
+import gtc_spawner
+from threading import Thread
+Thread(target=gtc_spawner.main, args=[bot]).run()
+```
+
+
 # Languages
 Persian and English
 
