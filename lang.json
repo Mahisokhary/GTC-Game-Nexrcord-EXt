@@ -22,5 +22,13 @@
 	"test-eror": {
 		"en": "please first set spawn channel using: /gtc set-spawn",
 		"fa": "لطفا اول چنل اسپان رو مشخص کنید با: /gtc set-spawn"
+	},
+	"e-no-country": {
+		"en": "you dont have any country:(",
+		"fa": "شما هیچ کشوری رو دریافت نکردید):"
+	},
+	"country-show-title": {
+		"en": "your countries:",
+		"fa": "کشور های شما:"
 	}
 }
