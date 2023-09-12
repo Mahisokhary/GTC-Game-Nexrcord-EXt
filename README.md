@@ -31,7 +31,7 @@ and define them in cogs/guess.py and cogs/language/guess.py
 
 then translate countries name in gtc_assets.json
 
-# County
+# Country
 you should add countries by your self
 add picture to any folder
 
