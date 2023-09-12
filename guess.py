@@ -68,7 +68,8 @@ class guess_the_country(commands.Cog):
 				server = self.bot.get_guild(data[1])
 				channel = server.get_channel(data[0])
 				d = json.load(open("gtc_assets.json"))
-				selected = random.choice(d)
+				selected = random.choice([i for i in d.keys()])
+				selected = d[selected]
 				
 				class mdl(nextcord.ui.Modal):
 					def __init__(self, correct, btn, bot, selected, msg):
@@ -112,18 +113,17 @@ class guess_the_country(commands.Cog):
 				await ctx.response.send_message(lang(ctx.user.id, self.bot).get_txt("test-eror"))
 		else:
 			await ctx.response.send_message(lang(ctx.user.id, self.bot).get_txt("e403"))
-
-	@main.subcommand(name="account")
-	async def sub(self, ctx):pass
+		
+	@main.subcommand(name="countries", description="actions about your countries")
+	async def countries(self, ctx): pass
 	
-	@sub.subcommand(name="create")
-	async def create_acc(self, ctx:nextcord.Interaction):
+	@countries.subcommand(name="show", description="show countries you ve got")
+	async def show(self, ctx:nextcord.Interaction):
 		for i in [f"users/{ctx.user.id}", f"users/{ctx.user.id}/gtc"]:
 			if not Path(i).exists():
 				os.system(f"mkdir {i}")
 		db = sqlite3.connect(f"users/{ctx.user.id}/gtc/country.db")
 		c = db.cursor()
-		
 		c.execute("""
 		create table if not exists county (
 			name varchar(255),
@@ -131,7 +131,18 @@ class guess_the_country(commands.Cog):
 		)
 		""")
 		db.commit()
-		await ctx.response.send_message(lang(ctx.user.id, self.bot).get_txt("success"))
+		l = lang(ctx.user.id, self.bot)
+		data = c.execute("select * from county").fetchall()
+		if data:
+			e = nextcord.Embed(title=l.get_txt("country-show-title"), color=nextcord.Color.green())
+			count = 1
+			for country in data:
+				country_name = json.load(open("gtc_assets.json"))[country[0]]["answer"][str(l)]
+				e.add_field(name=f"{count}- {country_name}", value="", inline=False)
+				count += 1
+			await ctx.response.send_message(embed=e)
+		else:
+			await ctx.response.send_message(l.get_txt("e-no-country"))
 
 def setup(bot):
 	bot.add_cog(guess_the_country(bot))
