@@ -1,14 +1,20 @@
 # GTC-Game-Nexrcord-EXt
 a Guess The Country game as nextcord extension
 
+# features
+see all features in releases!
+
 # how to play
 some country flag willl appear
 in a discord channel
 and to get it as reward
 you should guess its name
 
-# not complete
-wait for final release...
+# we need your help!
+if you had any issues
+tell us in issues tab
+
+we help you as fast as we can:)
 
 
 # notice
