@@ -3,7 +3,9 @@ import sqlite3
 import json
 import random
 import asyncio
+import os
 
+from pathlib import Path
 from cogs.language.guess import lang
 
 db = sqlite3.connect("gtc_guild.db")
@@ -25,7 +27,8 @@ async def guess(bot:nextcord.ext.commands.Bot):
 				server = guild
 				channel = server.get_channel(data[0])
 				d = json.load(open("gtc_assets.json"))
-				selected = random.choice(d)
+				selected = random.choice([i for i in d.keys()])
+				selected = d[selected]
 				
 				class mdl(nextcord.ui.Modal):
 					def __init__(self, correct, btn, bot, selected, msg):
@@ -44,6 +47,22 @@ async def guess(bot:nextcord.ext.commands.Bot):
 							self.btn.disabled = True
 							await ctx.response.send_message(ctx.user.mention + lang(ctx.user.id, self.bot).get_txt("win").format(self.correct))
 							await self.msg.edit(view=None, content=f"calimed by: {ctx.user.mention}\ncorrect answer: {self.selected['answer']['en']}")
+							for i in [f"users/{ctx.user.id}", f"users/{ctx.user.id}/gtc"]:
+								if not Path(i).exists():
+									os.system(f"mkdir {i}")
+							db = sqlite3.connect(f"users/{ctx.user.id}/gtc/country.db")
+							c = db.cursor()
+							c.execute("""
+							create table if not exists county (
+								name varchar(255),
+								asset varchar(255)
+							)
+							""")
+							db.commit()
+							c.execute("""
+							insert into county values(?, ?)
+							""", [self.selected["answer"]["en"], self.selected["asset"]])
+							db.commit()
 						else:
 							await ctx.response.send_message(lang(ctx.user.id, self.bot).get_txt("wrong"))
 				
